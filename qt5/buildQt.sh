@@ -19,7 +19,7 @@ if [ -n ${1} ] && [ -d ${2} ]; then
 
 
     echo "## creating sysroot ...."
-    $(dirnsame "$0")/sysroot_tools/create_sysroot.sh ${1} ${2}
+    $(dirname "$0")/sysroot_tools/create_sysroot.sh ${1} ${2}
     echo "## creating sysroot done. "
 
 
