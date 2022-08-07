@@ -1,11 +1,19 @@
 #!/bin/bash
 
+set -e
+
+logFileName="rk3288-sdk-$(TZ=Asia/Iran date +%F_%T).log"
+touch $logFileName
+
+exec >  >(tee -ia $logFileName)
+exec 2> >(tee -ia $logFileName >&2)
+
 echo "## Preparing Environment ... "
 USER=$(whoami)
 dest="/opt/rk3288"
 rootPSW=''
 remoteUSER='linaro'
-remoteADDRESS='192.168.1.33'
+remoteADDRESS='192.168.1.36'
 remotePSW='linaro'
 
 if [ -n $remoteUSER ] && [ -n $remotePSW ]; then
@@ -43,9 +51,9 @@ if [ $? -eq 0 ] ; then
         sshpass -p "$remotePSW" ssh-copy-id $connectString
     fi
 
-    echo "## sync 3thParty packages with remote host: "
+    echo "## copy 3thParty packages with remote host: "
     sleep 1
-    rsync -avz 3thParty "$connectString:/home/$remoteUSER"
+    scp -r 3thParty "$connectString:/home/$remoteUSER"
     echo "## execut scipts on remote host: "
     sleep 1
     ssh  $connectString  "sudo /home/$remoteUSER/3thParty/pkg_install.sh $remoteUSER"

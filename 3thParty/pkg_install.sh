@@ -33,17 +33,17 @@ echo " "
 echo " "
 echo "## update package DataBase"
 echo " "
-apt update && apt install -y --allow-change-held-packages aptitude
+apt update && apt install -y --allow-change-held-packages aptitude rsync
 
 
-apt remove -y libgl1-mesa libegl1-mesa libgles2-mesa
-apt remove -y libgl1 libegl1 libgles2
-aptitude -y purge
+# apt remove -y libgl1-mesa libegl1-mesa libgles2-mesa
+# apt remove -y libgl1 libegl1 libgles2
 echo " "
 echo " "
 echo " "
 echo "## upgrade existing packages"
 echo " "
+aptitude -y purge
 aptitude -y upgrade
 
 echo " "
@@ -56,78 +56,6 @@ aptitude install -y tzdata  sudo apt-utils git fakeroot devscripts cmake vim dh-
 
 #aptitude install -y qemu-user-static
 #aptitude install -y binfmt-support
-
-
-echo " "
-echo " "
-echo " "
-echo "## Installing offline rockchip library"
-echo "## Installing librMali"
-echo " "
-# rockchip libMali: http://opensource.rock-chips.com/wiki_Graphics#MALI_GPU_driver
-dpkg -i --force-overwrite $(dirname "$0")/packages/armhf/libmali/*.deb
-
-echo " "
-echo " "
-echo " "
-echo "## Installing offline rockchip library"
-echo "## Installing mpp"
-echo " "
-# rockchip mpp: http://opensource.rock-chips.com/wiki_Mpp
-dpkg -i --force-overwrite $(dirname "$0")/packages/armhf/mpp/*.deb
-
-echo " "
-echo " "
-echo " "
-echo "## Installing offline rockchip library"
-echo "## Installing gstreamer"
-echo " "
-# rockchip optimized gstreamer
-dpkg -i --force-overwrite $(dirname "$0")/packages/armhf/gstreamer/*.deb
-
-echo " "
-echo " "
-echo " "
-echo "## Installing offline rockchip library"
-echo "## Installing ffmpeg"
-echo " "
-# rockchip optimized ffmpeg
-dpkg -i --force-overwrite $(dirname "$0")/packages/armhf/ffmpeg/*.deb
-
-echo " "
-echo " "
-echo " "
-echo "## Installing offline rockchip library"
-echo "## Installing rkisp-engine"
-echo " "
-#rockchip optimized rkisp-engine
-dpkg -i --force-overwrite $(dirname "$0")/packages/armhf/camera/*.deb
-
-
-echo " "
-echo " "
-echo " "
-echo "## Installing offline rockchip library"
-echo "## Installing libDRM"
-echo " "
-# rockchip libdrm: http://opensource.rock-chips.com/wiki_Graphics#LibDRM
-dpkg -i --force-overwrite $(dirname "$0")/packages/armhf/libdrm/*.deb
-
-
-echo " "
-echo " "
-echo " "
-echo "## Installing offline rockchip library:"
-echo "## Installing librga"
-echo " "
-echo " "
-echo " "
-# rockchip librga: https://github.com/rockchip-android/hardware-rockchip-librga
-mkdir -p /usr/include/rga/
-cp $(dirname "$0")/packages/armhf/rga/include/* /usr/include/rga/
-cp $(dirname "$0")/packages/armhf/rga/lib/librga.so  /usr/lib/
-
-
 
 echo " "
 echo " "
@@ -165,6 +93,74 @@ aptitude install -y xf86dga*
 
 
 
+echo " "
+echo " "
+echo " "
+echo "## Installing offline rockchip library"
+echo "## Installing librMali"
+echo " "
+# rockchip libMali: http://opensource.rock-chips.com/wiki_Graphics#MALI_GPU_driver
+dpkg --force-overwrite --force-conflicts  -i  $(dirname "$0")/packages/armhf/libmali/*.deb
+
+echo " "
+echo " "
+echo " "
+echo "## Installing offline rockchip library"
+echo "## Installing mpp"
+echo " "
+# rockchip mpp: http://opensource.rock-chips.com/wiki_Mpp
+dpkg --force-overwrite --force-conflicts  -i  $(dirname "$0")/packages/armhf/mpp/*.deb
+
+echo " "
+echo " "
+echo " "
+echo "## Installing offline rockchip library"
+echo "## Installing gstreamer"
+echo " "
+# rockchip optimized gstreamer
+dpkg --force-overwrite --force-conflicts  -i  $(dirname "$0")/packages/armhf/gstreamer/*.deb
+
+echo " "
+echo " "
+echo " "
+echo "## Installing offline rockchip library"
+echo "## Installing ffmpeg"
+echo " "
+# rockchip optimized ffmpeg
+dpkg --force-overwrite --force-conflicts  -i  $(dirname "$0")/packages/armhf/ffmpeg/*.deb
+
+echo " "
+echo " "
+echo " "
+echo "## Installing offline rockchip library"
+echo "## Installing rkisp-engine"
+echo " "
+#rockchip optimized rkisp-engine
+dpkg --force-overwrite --force-conflicts  -i  $(dirname "$0")/packages/armhf/camera/*.deb
+
+
+echo " "
+echo " "
+echo " "
+echo "## Installing offline rockchip library"
+echo "## Installing libDRM"
+echo " "
+# rockchip libdrm: http://opensource.rock-chips.com/wiki_Graphics#LibDRM
+dpkg --force-overwrite --force-conflicts  -i  $(dirname "$0")/packages/armhf/libdrm/*.deb
+
+
+echo " "
+echo " "
+echo " "
+echo "## Installing offline rockchip library:"
+echo "## Installing librga"
+echo " "
+echo " "
+echo " "
+# rockchip librga: https://github.com/rockchip-android/hardware-rockchip-librga
+mkdir -p /usr/include/rga/
+cp $(dirname "$0")/packages/armhf/rga/include/* /usr/include/rga/
+cp $(dirname "$0")/packages/armhf/rga/lib/librga.so  /usr/lib/
 
 
 echo " "
