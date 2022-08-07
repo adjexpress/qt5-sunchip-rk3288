@@ -54,6 +54,7 @@ if [ -n ${1} ] && [ -d ${2} ]; then
             echo " "
             echo "## build starts "
             make -j$cores && make install
+            rm -rf $build
         else
             echo "## EE arm-linux-gnueabihf compiler is not in ${2}/compiler/"
             echo "## EE "
